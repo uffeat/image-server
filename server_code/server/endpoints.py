@@ -26,6 +26,11 @@ def create_response(content_type):
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/javascript; charset=utf-8"
         }
+    elif content_type == 'json':
+        response.headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json; charset=utf-8"
+        }
     return response
 
 def get_asset(path: str) -> str:
@@ -42,21 +47,17 @@ def get_image(name):
     return _get_image(name)
 
 
-
 @anvil.server.http_endpoint(
     "/get-image",
     methods=["GET"],
 )
-def get_image():
+def get_image(**q):
+
+    print(q)
     response = create_response('jpg')
     image = _get_image('test')
     response.body = image
     return response
-
-
-
-
-    
 
 
 

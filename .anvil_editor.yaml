@@ -2,7 +2,10 @@ unique_ids:
   forms:
     Form1: NPM7N2O22K65FKKT74YLLWWNETWBPM3G
   modules: {}
-  server_modules: {}
+  server_modules:
+    server: '1709126932626922559058769.84'
+    server.db: '1709127241934708950626598.166'
+    server.endpoints: '1709127145639876830951033.6104'
   assets:
     standard-page.html: VDVSEB3W43BAZN57V5XPPASSVHA6ADLL
     theme.css: I27EV5EQIOQBDR2VI23S6A2PCJU2NGNX

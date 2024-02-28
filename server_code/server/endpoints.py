@@ -3,6 +3,7 @@ import anvil.server
 from anvil import URLMedia
 from .db import get_image as _get_image
 from anvil.server import HttpResponse, get_app_origin
+from .utils.asset_endpoint import asset_endpoint
 
 app_origin = get_app_origin()
 
@@ -63,15 +64,11 @@ def get_image(name):
 
 
 
-@anvil.server.http_endpoint(
-    "/get-page",
-    methods=["GET"],
-)
-def get_page():
-    template = Template(get_asset('index.html'))
-    response = create_response('html')
-    response.body = template.render(headline='Hello World')
-    return response
+@asset_endpoint('name')
+def get_page(name):
+    template = Template(get_asset(f'{name}.html'))
+    return template.render(headline='Hello World')
+    
 
 
 @anvil.server.http_endpoint(

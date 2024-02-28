@@ -2,9 +2,38 @@ from jinja2 import Template
 import anvil.server
 from anvil import URLMedia
 from .db import get_image as _get_image
-from anvil.server import get_app_origin
+from anvil.server import HttpResponse, get_app_origin
 
 app_origin = get_app_origin()
+
+def create_response(content_type):
+    """."""
+    response = HttpResponse()
+    if content_type == 'css':
+        response.headers = {
+            "Content-Type": "text/css; charset=utf-8"
+        }
+    elif content_type == 'html':
+        response.headers = {
+            "Content-Type": "text/html; charset=utf-8"
+        }
+    elif content_type == 'jpg':
+        response.headers = {
+            "Content-Type": "image/jpeg"
+        }
+    elif content_type == 'js':
+        response.headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/javascript; charset=utf-8"
+        }
+    return response
+
+def get_asset(path: str) -> str:
+    """."""
+    media = URLMedia(f'{app_origin}/_/theme/{path}')
+    media_bytes = media.get_bytes()
+    text = media_bytes.decode()
+    return text
 
 
 @anvil.server.callable
@@ -12,31 +41,22 @@ def get_image(name):
     """."""
     return _get_image(name)
 
+
+
 @anvil.server.http_endpoint(
     "/get-image",
     methods=["GET"],
 )
 def get_image():
-    response = anvil.server.HttpResponse()
-    
-    response.headers = {
-        ##"Access-Control-Allow-Origin": "*",
-        "Content-Type": "image/jpeg"
-    }
-
+    response = create_response('jpg')
     image = _get_image('test')
     response.body = image
-    ##response.status = 200
     return response
 
-def get_asset(path: str) -> str:
-    """."""
-    media = URLMedia(f'https://image-server.anvil.app/_/theme/{path}')
-    media_bytes = media.get_bytes()
-    text = media_bytes.decode()
-    return text
 
 
+
+    
 
 
 
@@ -45,27 +65,9 @@ def get_asset(path: str) -> str:
     methods=["GET"],
 )
 def get_page():
-    response = anvil.server.HttpResponse()
-    
-    response.headers = {
-        ##"Access-Control-Allow-Origin": "*",
-        "Content-Type": "text/html; charset=utf-8"
-    }
- 
-    
-
-    raw_html = get_asset('index.html')
-
-    template = Template(raw_html)
-
-    # Render the template with context
-    html = template.render(headline='Hello World')
-
-    ##html = html.format(headline="Hello")
-
-    response.body = html
-    ##response.status = 200
-    
+    template = Template(get_asset('index.html'))
+    response = create_response('html')
+    response.body = template.render(headline='Hello World')
     return response
 
 
@@ -74,21 +76,8 @@ def get_page():
     methods=["GET"],
 )
 def get_module():
-    response = anvil.server.HttpResponse()
-    
-    response.headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/javascript; charset=utf-8"
-    }
- 
-    media = URLMedia('https://image-server.anvil.app/_/theme/main.js')
-    media_bytes = media.get_bytes()
-    js = media_bytes.decode()
-
-    
-    response.body = js
-    ##response.status = 200
-    
+    response = create_response('js')
+    response.body = get_asset('main.js')
     return response
 
 @anvil.server.http_endpoint(
@@ -96,19 +85,6 @@ def get_module():
     methods=["GET"],
 )
 def get_styles():
-    response = anvil.server.HttpResponse()
-    
-    response.headers = {
-        ##"Access-Control-Allow-Origin": "*",
-        "Content-Type": "text/css; charset=utf-8"
-    }
- 
-    media = URLMedia('https://image-server.anvil.app/_/theme/styles.css')
-    media_bytes = media.get_bytes()
-    css = media_bytes.decode()
-
-    
-    response.body = css
-    ##response.status = 200
-    
+    response = create_response('css')
+    response.body = get_asset('styles.css')
     return response

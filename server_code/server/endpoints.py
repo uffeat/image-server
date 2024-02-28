@@ -49,9 +49,16 @@ def get_page():
     
     media = URLMedia('https://image-server.anvil.app/_/theme/index.html')
     media_bytes = media.get_bytes()
-    decoded_media_bytes = media_bytes.decode()
+    html = media_bytes.decode()
 
-    response.body = decoded_media_bytes
+    html.format(headline='Hello')
+
+
+
+    response.body = html
+
+
+
     response.status = 200
         
 

@@ -43,25 +43,14 @@ def get_page():
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "text/html; charset=utf-8"
     }
-
-    
-
-    
+ 
     media = URLMedia('https://image-server.anvil.app/_/theme/index.html')
     media_bytes = media.get_bytes()
     html = media_bytes.decode()
 
-    
-
     html = html.format(headline="Hello")
 
-
-
     response.body = html
-
-
-
     response.status = 200
-        
-
+    
     return response

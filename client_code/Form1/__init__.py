@@ -14,4 +14,4 @@ class Form1(Form1Template):
         image = call_server('get_image', 'test')
         self.image_1.source = image
 
-        fetch('https://image-server.anvil.app/_/api/my-url')
+        fetch('https://image-server.anvil.app/_/api/get-page')

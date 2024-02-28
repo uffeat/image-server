@@ -48,7 +48,7 @@ def get_image(name):
 
 
 @anvil.server.http_endpoint(
-    "/get-image/",
+    "/get-image/:args",
     methods=["GET"],
 )
 def get_image(*args, **kwargs):

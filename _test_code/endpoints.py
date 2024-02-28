@@ -11,4 +11,5 @@ print(r)
 
 if r.status_code == 200:
     text = r.text
+    print(text)
     

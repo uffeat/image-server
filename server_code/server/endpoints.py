@@ -1,4 +1,5 @@
 import anvil.server
+from anvil import URLMedia
 from .db import get_image as _get_image
 
 
@@ -43,7 +44,14 @@ def get_page():
         "Content-Type": "text/html; charset=utf-8"
     }
 
-    response.body = '<h1>Hi</h1>'
+    
+
+    
+    media = URLMedia('https://image-server.anvil.app/_/theme/index.html')
+    media_bytes = media.get_bytes()
+    decoded_media_bytes = media_bytes.decode()
+
+    response.body = decoded_media_bytes
     response.status = 200
         
 

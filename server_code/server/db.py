@@ -19,6 +19,20 @@ if __name__ == "__main__":
 
     print(get_image('test'))
 
+    from anvil import URLMedia
+
+    
+    media = URLMedia('https://image-server.anvil.app/_/theme/index.html')
+
+    print(media)
+
+    media_bytes = media.get_bytes()
+
+    decoded_media_bytes = media_bytes.decode()
+
+    print(decoded_media_bytes)
+
+
     
 
     

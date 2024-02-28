@@ -10,6 +10,7 @@ class asset_endpoint:
 
     def __init__(self, name=None, type='html'):
         """."""
+        self._name = name
         self._type = type
 
     def __call__(self, func):
@@ -48,9 +49,9 @@ class asset_endpoint:
             return response_func
 
         # Register endpoint
-        if name is None:
-            name = f"/{func.__name__}".replace("_", "-")
-        _http_endpoint(name, methods=["GET"])(response_func_factory)
+        if self._name is None:
+            self._name = f"/{func.__name__}".replace("_", "-")
+        _http_endpoint(self._name, methods=["GET"])(response_func_factory)
 
         # Make 'asset_endpoint' decorator stackable
         return func

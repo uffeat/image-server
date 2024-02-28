@@ -64,8 +64,8 @@ def get_image(name):
 
 
 
-@asset_endpoint('name')
-def get_page(name, _meta=None):
+@asset_endpoint()
+def get_page(name):
     template = Template(get_asset(f'{name}.html'))
     return template.render(headline='Hello World')
     

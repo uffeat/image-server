@@ -7,20 +7,25 @@ from anvil.server import (
 class asset_endpoint:
     """Decorator for asset endpoint funcs"""
 
-    def __init__(self, *params, type='html', accept_query=False):
+    def __init__(self, type='html'):
         """."""
-        self.params = params
-        self.accept_query = accept_query
+        
+        
         self.type = type
 
     def __call__(self, func):
         """."""
+        code_object = func.__code__
+        pos_args_n = code_object.co_argcount
+        pos_arg_names = code_object.co_varnames[:pos_args_n]
+
+
 
         self.url = f"/{func.__name__}".replace("_", "-")
-        if self.params:
-            self.url = self.url + '/:' + '/:'.join(self.params)
-        if self.accept_query is True:
-            self.url = self.url + '/'
+        if pos_arg_names:
+            self.url = self.url + '/:' + '/:'.join(pos_arg_names)
+        #if accept_query is True:
+            #self.url = self.url + '/'
 
         def response_func(*params, **q):
             """."""
@@ -43,7 +48,8 @@ class asset_endpoint:
 
             
             http_response = _HttpResponse()
-            asset = func(*params, _meta=self, **q)
+            func._asset_endpoint = self
+            asset = func(*params, **q)
             http_response.body = asset
 
             http_response.headers = response_headers

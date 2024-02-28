@@ -2,6 +2,9 @@ from jinja2 import Template
 import anvil.server
 from anvil import URLMedia
 from .db import get_image as _get_image
+from anvil.server import get_app_origin
+
+app_origin = get_app_origin()
 
 
 @anvil.server.callable
@@ -26,6 +29,14 @@ def get_image():
     ##response.status = 200
     return response
 
+def get_asset(path: str) -> str:
+    """."""
+    media = URLMedia(f'https://image-server.anvil.app/_/theme/{path}')
+    media_bytes = media.get_bytes()
+    text = media_bytes.decode()
+    return text
+
+
 
 
 
@@ -41,9 +52,9 @@ def get_page():
         "Content-Type": "text/html; charset=utf-8"
     }
  
-    media = URLMedia('https://image-server.anvil.app/_/theme/index.html')
-    media_bytes = media.get_bytes()
-    raw_html = media_bytes.decode()
+    
+
+    raw_html = get_asset('index.html')
 
     template = Template(raw_html)
 

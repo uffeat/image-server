@@ -4,7 +4,7 @@ def get_image(name):
     row = app_tables.images.get(name=name)
     image = row['file']
 
-    print(image.content_type)
+    
 
 
     return image
@@ -24,6 +24,7 @@ if __name__ == "__main__":
     
     media = URLMedia('https://image-server.anvil.app/_/theme/index.html')
 
+    print(media.content_type)
     print(media)
 
     media_bytes = media.get_bytes()

@@ -51,9 +51,11 @@ def get_image(name):
     "/get-image",
     methods=["GET"],
 )
-def get_image(**q):
+def get_image(*args, **kwargs):
 
-    print(q)
+    print('kwargs:', kwargs)##
+    print('args:', args)##
+
     response = create_response('jpg')
     image = _get_image('test')
     response.body = image

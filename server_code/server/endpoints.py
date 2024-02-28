@@ -80,3 +80,24 @@ def get_module():
     
     return response
 
+@anvil.server.http_endpoint(
+    "/get-styles",
+    methods=["GET"],
+)
+def get_styles():
+    response = anvil.server.HttpResponse()
+    
+    response.headers = {
+        ##"Access-Control-Allow-Origin": "*",
+        "Content-Type": "text/css; charset=utf-8"
+    }
+ 
+    media = URLMedia('https://image-server.anvil.app/_/theme/styles.css')
+    media_bytes = media.get_bytes()
+    css = media_bytes.decode()
+
+    
+    response.body = css
+    ##response.status = 200
+    
+    return response

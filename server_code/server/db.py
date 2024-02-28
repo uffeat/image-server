@@ -12,4 +12,5 @@ def get_image(name):
     
 
 if __name__ == "__main__":
-    ...
+    server_key = 'server_EJJ3X6EFJZWY5DQ6ML4UXFR7-YLALERW7EPQHRHXJ'
+    client_key = ''

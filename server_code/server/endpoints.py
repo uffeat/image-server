@@ -7,3 +7,23 @@ def get_image(name):
     """."""
     return _get_image(name)
 
+@anvil.server.http_endpoint(
+    "/get-image",
+    methods=["GET"],
+)
+def get_image():
+    response = anvil.server.HttpResponse()
+    
+    response.headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "image/jpeg"
+    }
+
+    image = _get_image('test')
+
+        
+    response.body = image
+    response.status = 200
+        
+
+    return response

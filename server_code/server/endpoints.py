@@ -66,7 +66,7 @@ def get_module():
     response = anvil.server.HttpResponse()
     
     response.headers = {
-        ##"Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/javascript; charset=utf-8"
     }
  

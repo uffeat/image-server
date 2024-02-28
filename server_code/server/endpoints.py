@@ -41,7 +41,7 @@ def get_page():
     response = anvil.server.HttpResponse()
     
     response.headers = {
-        "Access-Control-Allow-Origin": "*",
+        ##"Access-Control-Allow-Origin": "*",
         "Content-Type": "text/html; charset=utf-8"
     }
  

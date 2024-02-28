@@ -42,4 +42,5 @@ db_schema:
       admin_ui: {width: 200, order: 1}
       type: media
     title: images
+uplink_visible: true
 renamed: true

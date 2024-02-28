@@ -19,7 +19,6 @@ class asset_endpoint:
         self.url = f"/{func.__name__}".replace("_", "-")
         if self.params:
             self.url = self.url + '/:' + '/:'.join(self.params)
-
         if self.accept_query is True:
             self.url = self.url + '/'
 
@@ -45,7 +44,7 @@ class asset_endpoint:
             def response_func(*params, **q):
                 """"""
                 http_response = _HttpResponse()
-                asset = self._func(*params, _meta=self, **q)
+                asset = func(*params, _meta=self, **q)
                 http_response.body = asset
 
                 http_response.headers = response_headers

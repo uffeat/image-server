@@ -22,8 +22,8 @@ class asset_endpoint:
         if self.accept_query is True:
             self.url = self.url + '/'
 
-        def response_func_factory():
-            """Returns a func that gets called when endpoint is invoked."""
+        def response_func(*params, **q):
+            """."""
             if self.type == "css":
                 response_headers = {"Content-Type": "text/css; charset=utf-8"}
             elif self.type == "html":
@@ -41,23 +41,22 @@ class asset_endpoint:
                     "Content-Type": "application/json; charset=utf-8",
                 }
 
-            def response_func(*params, **q):
-                """"""
-                http_response = _HttpResponse()
-                asset = func(*params, _meta=self, **q)
-                http_response.body = asset
+            
+            http_response = _HttpResponse()
+            asset = func(*params, _meta=self, **q)
+            http_response.body = asset
 
-                http_response.headers = response_headers
+            http_response.headers = response_headers
 
-                return http_response
+            return http_response
 
-            return response_func
+            
 
         # Register endpoint
         
         
 
-        _http_endpoint(self.url, methods=["GET"])(response_func_factory)
+        _http_endpoint(self.url, methods=["GET"])(response_func)
 
         # Make 'asset_endpoint' decorator stackable
         return func

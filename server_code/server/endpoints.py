@@ -22,12 +22,8 @@ def get_image():
     }
 
     image = _get_image('test')
-
-        
     response.body = image
     ##response.status = 200
-        
-
     return response
 
 
@@ -57,6 +53,29 @@ def get_page():
     ##html = html.format(headline="Hello")
 
     response.body = html
+    ##response.status = 200
+    
+    return response
+
+
+@anvil.server.http_endpoint(
+    "/get-module",
+    methods=["GET"],
+)
+def get_module():
+    response = anvil.server.HttpResponse()
+    
+    response.headers = {
+        ##"Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/javascript; charset=utf-8"
+    }
+ 
+    media = URLMedia('https://image-server.anvil.app/_/theme/main.js')
+    media_bytes = media.get_bytes()
+    js = media_bytes.decode()
+
+    
+    response.body = js
     ##response.status = 200
     
     return response

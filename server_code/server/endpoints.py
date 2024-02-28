@@ -51,6 +51,8 @@ def get_page():
     media_bytes = media.get_bytes()
     html = media_bytes.decode()
 
+    html = str(html)
+
     html.format(headline="Hello")
 
 

@@ -6,7 +6,11 @@ services:
 package_name: image_server
 allow_embedding: false
 name: image_server
-runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
-metadata: {title: Image server}
+runtime_options:
+  version: 2
+  client_version: '3'
+  server_version: python3-full
+  server_spec: {base: python310-standard}
+metadata: {title: Image server, description: Image server}
 startup_form: Form1
 renamed: true

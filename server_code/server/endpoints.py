@@ -1,3 +1,4 @@
+from jinja2 import Template
 import anvil.server
 from anvil import URLMedia
 from .db import get_image as _get_image

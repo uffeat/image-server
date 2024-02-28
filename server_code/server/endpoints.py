@@ -61,20 +61,3 @@ def get_page():
     
     return response
 
-
-@anvil.server.http_endpoint(
-    "/my-url",
-    methods=["GET"],
-)
-def get_page():
-    response = anvil.server.HttpResponse()
-    
-    response.headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "text/plain; charset=utf-8"
-    }
- 
-    
-    response.status = 200
-    
-    return response

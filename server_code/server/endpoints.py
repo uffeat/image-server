@@ -43,9 +43,6 @@ def get_page():
         "Content-Type": "text/html; charset=utf-8"
     }
 
-    
-
-        
     response.body = '<h1>Hi</h1>'
     response.status = 200
         
